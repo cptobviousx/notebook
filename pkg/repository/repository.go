@@ -11,6 +11,9 @@ type Authorization interface {
 }
 
 type NoteBookList interface {
+	Create(userId int, list notebook.NoteBookList) (int, error)
+	GetAll(userId int) ([]notebook.NoteBookList, error)
+	GetById(userId, listId int) (notebook.NoteBookList, error)
 }
 
 type NoteBookItem interface {
@@ -25,5 +28,6 @@ type Repository struct {
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		NoteBookList:  NewNoteBookPostgres(db),
 	}
 }
