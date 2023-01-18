@@ -1,14 +1,13 @@
 package main
 
 import (
-	"context"
 	"os"
-	"os/signal"
-	"syscall"
 
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
+
+	_ "github.com/cptobviousx/notebook/docs"
 
 	"github.com/cptobviousx/notebook"
 	"github.com/cptobviousx/notebook/pkg/handler"
@@ -19,7 +18,7 @@ import (
 
 // @title NoteBook App API
 // @version 1.0
-// @description API Server for NoteBook Application
+// @description API Server for NoteBookList Application
 
 // @host localhost:8000
 // @BasePath /
@@ -57,26 +56,8 @@ func main() {
 	handlers := handler.NewHandler(services)
 
 	srv := new(notebook.Server)
-	go func() {
-		if err := srv.Run(viper.GetString("server.port"), handlers.InitRoutes()); err != nil {
-			logrus.Fatalf("error occured while running server: %s", err.Error())
-		}
-	}()
-
-	logrus.Print("NoteBookApp Started")
-
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGTERM, syscall.SIGINT)
-	<-quit
-
-	logrus.Print("NoteBookApp Shutting Down")
-
-	if err := srv.Shutdown(context.Background()); err != nil {
-		logrus.Errorf("error shutting down server :%s", err.Error())
-	}
-
-	if err := db.Close(); err != nil {
-		logrus.Errorf("error closing data base connection :%s", err.Error())
+	if err := srv.Run(viper.GetString("server.port"), handlers.InitRoutes()); err != nil {
+		logrus.Fatalf("error occured while running server: %s", err.Error())
 	}
 }
 

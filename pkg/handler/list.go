@@ -15,7 +15,7 @@ import (
 // @ID create-list
 // @Accept  json
 // @Produce  json
-// @Param input body notebook.notebookList true "list info"
+// @Param input body notebook.NoteBookList true "list info"
 // @Success 200 {integer} integer 1
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse
@@ -84,7 +84,7 @@ func (h *Handler) getAllLists(c *gin.Context) {
 // @ID get-list-by-id
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} notebook.ListItem
+// @Success 200 {object} notebook.NoteBookList
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse
 // @Failure default {object} errorResponse
