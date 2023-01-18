@@ -7,12 +7,25 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
 
+	_ "github.com/cptobviousx/notebook/docs"
+
 	"github.com/cptobviousx/notebook"
 	"github.com/cptobviousx/notebook/pkg/handler"
 	"github.com/cptobviousx/notebook/pkg/repository"
 	"github.com/cptobviousx/notebook/pkg/service"
 	"github.com/spf13/viper"
 )
+
+// @title NoteBook App API
+// @version 1.0
+// @description API Server for NoteBookList Application
+
+// @host localhost:8000
+// @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
